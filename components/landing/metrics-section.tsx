@@ -2,135 +2,50 @@
 
 import { useEffect, useState, useRef } from "react";
 
-type MetricCard = {
-  value: number;
-  suffix: string;
-  prefix: string;
-  label: string;
-  sublabel: string;
-  variant: "large" | "small";
-  dotGraph: {
-    color: "white" | "green";
-    height: number;
-    freq1: number;
-    freq2: number;
-    freqT: number;
-    speed: number;
-    baseline: number;
-    amplitude: number;
-  };
-};
-
-const baseMetrics: MetricCard[] = [
+const strategyPhases = [
   {
-    value: 12847392,
-    suffix: "",
-    prefix: "",
-    label: "Tasks completed today",
-    sublabel: "by 23,847 active agents",
-    variant: "large",
-    dotGraph: {
-      color: "white",
-      height: 36,
-      freq1: 0.28,
-      freq2: 0.09,
-      freqT: 0.5,
-      speed: 0.018,
-      baseline: 0.35,
-      amplitude: 0.55,
-    },
+    number: "01",
+    title: "Discover & Plan",
+    detail: "We use AI during workshops and stakeholder interviews. The AI reviews information from calls, documents, and social conversations - highlighting blind spots, unusual cases, and contradictions that people might overlook.",
+    badge: "Human + AI",
+    badgeClass: "text-[#f6b24a] border-[#f6b24a]/50 bg-[#f6b24a]/10",
   },
   {
-    value: 99,
-    suffix: ".99%",
-    prefix: "",
-    label: "Availability",
-    sublabel: "across all regions",
-    variant: "small",
-    dotGraph: {
-      color: "green",
-      height: 24,
-      freq1: 0.45,
-      freq2: 0.18,
-      freqT: 1.1,
-      speed: 0.032,
-      baseline: 0.4,
-      amplitude: 0.45,
-    },
+    number: "02",
+    title: "Align",
+    detail: "You review and approve. Every decision is logged - an auditable trail before any code is written. No black box, no scope drift.",
+    badge: "Human",
+    badgeClass: "text-green-300 border-green-300/50 bg-green-300/10",
   },
   {
-    value: 340,
-    suffix: "ms",
-    prefix: "<",
-    label: "Average execution",
-    sublabel: "p99 latency",
-    variant: "small",
-    dotGraph: {
-      color: "white",
-      height: 24,
-      freq1: 0.22,
-      freq2: 0.07,
-      freqT: 0.4,
-      speed: 0.015,
-      baseline: 0.25,
-      amplitude: 0.6,
-    },
+    number: "03",
+    title: "Build",
+    detail: "AI agents execute the approved plan inside engineered guardrails. Senior engineers steer and unblock. Sprint cadence with working artifacts, not status decks.",
+    badge: "AI",
+    badgeClass: "text-[#f6b24a] border-[#f6b24a]/50 bg-[#f6b24a]/10",
   },
-];
-
-const metrics = [...baseMetrics, ...baseMetrics];
-
-function AnimatedNumber({ end, suffix = "", prefix = "" }: { end: number; suffix?: string; prefix?: string }) {
-  const [count, setCount] = useState(0);
-  const [isScrambling, setIsScrambling] = useState(true);
-  const ref = useRef<HTMLDivElement>(null);
-  const [hasAnimated, setHasAnimated] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-          const duration = 2500;
-          const startTime = performance.now();
-          const animate = (currentTime: number) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 4);
-            setCount(Math.floor(eased * end));
-            setIsScrambling(progress < 0.8);
-            if (progress < 1) requestAnimationFrame(animate);
-          };
-          requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [end, hasAnimated]);
-
-  const displayValue = count.toLocaleString();
-
-  return (
-    <div ref={ref} className="inline-flex items-baseline">
-      <span className="text-muted-foreground mr-1">{prefix}</span>
-      <span className="tabular-nums">
-        {displayValue.split("").map((char, i) => (
-          <span
-            key={i}
-            className={`inline-block transition-all duration-150 ${
-              isScrambling && char !== "," ? "blur-[1px]" : ""
-            }`}
-          >
-            {char}
-          </span>
-        ))}
-      </span>
-      <span className="text-muted-foreground">{suffix}</span>
-    </div>
-  );
-}
+  {
+    number: "04",
+    title: "Validate",
+    detail: "Three independent layers on every release candidate: automated evals, senior code review, and dedicated Human QA - manual and exploratory testing alongside security, performance, and accessibility checks.",
+    badge: "Human + AI",
+    badgeClass: "text-[#f6b24a] border-[#f6b24a]/50 bg-[#f6b24a]/10",
+  },
+  {
+    number: "05",
+    title: "Release",
+    detail: "Production deployment, UAT, knowledge transfer, runbooks. Cutover is documented, reversible, and on a schedule you approve. Your team takes the keys - or we operate it for you.",
+    badge: "Human + AI",
+    badgeClass: "text-[#f6b24a] border-[#f6b24a]/50 bg-[#f6b24a]/10",
+  },
+  {
+    number: "06",
+    title: "Evolve",
+    detail: "Launch is a milestone, not a finish line. Monitoring, feedback loops, and incremental improvements keep the system compounding - and feed the next discovery cycle.",
+    badge: "Human + AI",
+    badgeClass: "text-[#f6b24a] border-[#f6b24a]/50 bg-[#f6b24a]/10",
+  },
+] as const;
 
 function GridBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -299,25 +214,30 @@ export function MetricsSection() {
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="grid lg:grid-cols-12 gap-8 mb-20 lg:mb-32">
-          <div className="lg:col-span-8 lg:col-start-1">
+          <div className="lg:col-span-7 lg:col-start-1">
             <div className="flex items-center gap-4 mb-6">
               <span className="flex items-center gap-2 px-3 py-1 bg-[#eca8d6]/10 text-[#eca8d6] text-xs font-mono">
                 <span className="w-2 h-2 rounded-full bg-[#eca8d6] animate-pulse" />
-                LIVE
+                Work
               </span>
               <span className="text-sm font-mono text-muted-foreground">
-                {time ? `${time.toLocaleTimeString("en-GB")} UTC` : ""}
+                {time ? `${time.toLocaleTimeString("en-GB")} GMT+6` : ""}
               </span>
             </div>
 
             <h2 className={`text-6xl md:text-7xl lg:text-[140px] font-display tracking-tight leading-[0.95] transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}>
-              Real-time
+              Our
               <br />
-              <span className="text-muted-foreground">agent metrics.</span>
+              <span className="text-muted-foreground">Strategy Offerings</span>
             </h2>
           </div>
+          <p className={`lg:col-span-5 lg:col-start-8 self-end max-w-3xl text-xl text-muted-foreground leading-relaxed transition-all duration-1000 delay-100 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}>
+            Six defined phases. Ongoing iteration. AI works with us in every discussion - revealing blind spots, edge cases, and inconsistencies before they turn into rework - while senior engineers and Human QA own the choices that manage risk and deliver the product. <strong className="text-foreground font-normal">You always know who's leading, what you're approving, and what follows.</strong>
+          </p>
         </div>
 
         {/* Organic graph image */}
@@ -334,74 +254,49 @@ export function MetricsSection() {
 
         {/* Metrics grid */}
         <div className="grid lg:grid-cols-3 gap-6">
-          {metrics.map((metric, index) => {
-            const trioIndex = index % baseMetrics.length;
-
-            return metric.variant === "large" ? (
-              <div
-                key={`${metric.label}-${index}`}
-                className={`lg:col-span-1 bg-foreground/[0.02] border border-foreground/10 p-10 lg:p-14 transition-all duration-700 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                }`}
-                style={{ transitionDelay: `${(index + 1) * 100}ms` }}
-              >
-                <div className="text-4xl md:text-5xl lg:text-6xl font-display tracking-tight mb-4 whitespace-nowrap overflow-hidden">
-                  <AnimatedNumber end={metric.value} suffix={metric.suffix} prefix={metric.prefix} />
+          {strategyPhases.map((phase, index) => (
+            <div
+              key={phase.number}
+              className={`min-h-[260px] lg:h-[280px] rounded-2xl border border-foreground/15 bg-black/45 p-7 backdrop-blur-sm transition-all duration-700 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+              }`}
+              style={{ transitionDelay: `${(index + 1) * 100}ms` }}
+            >
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+              <span className="text-sm font-mono font-semibold text-[#f6b24a]">{phase.number}</span>
+                  <h3 className="text-2xl font-display text-foreground">{phase.title}</h3>
                 </div>
-                <div className="mb-6">
-                  <DotGraph
-                    color={metric.dotGraph.color}
-                    height={metric.dotGraph.height}
-                    freq1={metric.dotGraph.freq1}
-                    freq2={metric.dotGraph.freq2}
-                    freqT={metric.dotGraph.freqT}
-                    speed={metric.dotGraph.speed}
-                    baseline={metric.dotGraph.baseline}
-                    amplitude={metric.dotGraph.amplitude}
-                  />
-                </div>
-                <div className="text-lg text-foreground mb-2">{metric.label}</div>
-                <div className="text-sm text-muted-foreground font-mono">{metric.sublabel}</div>
+                <span className={`shrink-0 rounded-full border px-3 py-1 text-xs font-mono ${phase.badgeClass}`}>
+                  {phase.badge}
+                </span>
               </div>
-            ) : (
-              <div
-                key={`${metric.label}-${index}`}
-                className={`bg-foreground/[0.02] border border-foreground/10 p-8 flex flex-col items-start justify-between gap-6 transition-all duration-700 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                }`}
-                style={{ transitionDelay: `${(index + 1) * 100}ms` }}
-              >
-                <div className="w-full">
-                  <div className="text-sm text-muted-foreground font-mono mb-2">{metric.sublabel}</div>
-                  <div className="text-base text-foreground mb-3">{metric.label}</div>
-                  <DotGraph
-                    color={trioIndex === 1 ? "green" : "white"}
-                    height={24}
-                    freq1={trioIndex === 1 ? 0.45 : 0.22}
-                    freq2={trioIndex === 1 ? 0.18 : 0.07}
-                    freqT={trioIndex === 1 ? 1.1 : 0.4}
-                    speed={trioIndex === 1 ? 0.032 : 0.015}
-                    baseline={trioIndex === 1 ? 0.4 : 0.25}
-                    amplitude={trioIndex === 1 ? 0.45 : 0.6}
-                  />
-                </div>
-                <div className="text-3xl md:text-4xl lg:text-5xl font-display tracking-tight w-full">
-                  <AnimatedNumber end={metric.value} suffix={metric.suffix} prefix={metric.prefix} />
-                </div>
+              <p className="text-base leading-relaxed text-muted-foreground">{phase.detail}</p>
+              <div className="mt-6 border-t border-foreground/10 pt-4">
+                <DotGraph
+                  color={index === 1 ? "green" : "white"}
+                  height={24}
+                  freq1={index === 1 ? 0.45 : 0.22}
+                  freq2={index === 1 ? 0.18 : 0.07}
+                  freqT={index === 1 ? 1.1 : 0.4}
+                  speed={index === 1 ? 0.032 : 0.015}
+                  baseline={index === 1 ? 0.4 : 0.25}
+                  amplitude={index === 1 ? 0.45 : 0.6}
+                />
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
         {/* Bottom ticker */}
         <div className={`mt-16 pt-8 border-t border-foreground/10 flex flex-wrap items-center gap-x-12 gap-y-4 text-sm font-mono text-muted-foreground transition-all duration-1000 delay-500 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}>
-          <span>OpenAI GPT-4 Turbo</span>
-          <span>Anthropic Claude 3</span>
-          <span>Mistral Large</span>
-          <span>Llama 3</span>
-          <span className="text-foreground">+12 more models</span>
+          <span>OPTIMIZING FOR GROUTH</span>
+          <span>PROJECT TO PRODUCT</span>
+          <span>MERGERS & ACQUISITION</span>
+          <span>GENARATIVE AI</span>
+          <span className="text-foreground">BUSINESS VALUE</span>
         </div>
       </div>
     </section>

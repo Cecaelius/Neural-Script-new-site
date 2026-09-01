@@ -7,10 +7,14 @@ __v0_jsx-dev-runtime.ts
 .vercel/
 next.user-config.*
 
-# Environment variables
+# Environment variables and secrets
 .env
 .env.*
 !.env.example
+*.pem
+*.key
+*.crt
+*.p12
 
 # Dependencies
 node_modules/
@@ -37,3 +41,8 @@ Thumbs.db
 
 # TypeScript / build metadata
 *.tsbuildinfo
+
+# Deployment / platform local metadata
+.vercel/
+netlify/
+.firebase/

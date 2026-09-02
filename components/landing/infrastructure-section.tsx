@@ -1,17 +1,36 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import {
+  Building2,
+  CandlestickChart,
+  CircuitBoard,
+  ContactRound,
+  Factory,
+  Fingerprint,
+  Gamepad2,
+  GraduationCap,
+  HeartPulse,
+  PanelsTopLeft,
+  type LucideIcon,
+} from "lucide-react";
 
-const regions = [
-  { name: "North America", nodes: 12, status: "operational" },
-  { name: "Europe", nodes: 8, status: "operational" },
-  { name: "Asia Pacific", nodes: 6, status: "operational" },
-  { name: "South America", nodes: 3, status: "operational" },
+const industries: { name: string; description: string; icon: LucideIcon }[] = [
+  { name: "CRM", description: "Transform Customer Data into Revenue with AI", icon: ContactRound },
+  { name: "Education", description: "Transform Student Outcomes with AI-Powered Platforms", icon: GraduationCap },
+  { name: "Enterprise Software", description: "Unify Your Enterprise Systems with AI", icon: Building2 },
+  { name: "Fintech", description: "Fintech software, built by payments and banking engineers", icon: Fingerprint },
+  { name: "Game Development", description: "Ship Games Faster with AI-Accelerated Pipelines", icon: Gamepad2 },
+  { name: "Healthcare Services", description: "Healthcare software for clinical and operational workflows", icon: HeartPulse },
+  { name: "High Frequency Trading", description: "Capture Microsecond Advantages with AI-Optimized Systems", icon: CandlestickChart },
+  { name: "IoT", description: "Deploy Smarter Connected Devices with AI at the Edge", icon: CircuitBoard },
+  { name: "Manufacturing", description: "Run Smarter Production Lines with AI", icon: Factory },
+  { name: "SaaS", description: "Your embedded, AI-native team for SaaS development", icon: PanelsTopLeft },
 ];
 
 export function InfrastructureSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeRegion, setActiveRegion] = useState(0);
+  const [activeIndustry, setActiveIndustry] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -28,7 +47,7 @@ export function InfrastructureSection() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveRegion((prev) => (prev + 1) % regions.length);
+      setActiveIndustry((prev) => (prev + 1) % industries.length);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
@@ -44,7 +63,7 @@ export function InfrastructureSection() {
             isVisible ? "opacity-100" : "opacity-0"
           }`}>
             <span className="w-12 h-px bg-foreground/20" />
-            Global infrastructure
+            Industries
           </span>
           
           <div className="grid lg:grid-cols-[auto_1fr] gap-8 lg:gap-16 items-stretch">
@@ -61,19 +80,18 @@ export function InfrastructureSection() {
 
             {/* Titre + description empilés */}
             <div className="flex flex-col justify-center">
-              <h2 className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
+              <h2 className={`text-4xl md:text-5xl lg:text-[64px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}>
-                Global by
+                We Empower Businesses
                 <br />
-                <span className="text-muted-foreground">default.</span>
+                <span className="text-muted-foreground">Across Industries.</span>
               </h2>
 
               <p className={`mt-8 text-xl text-muted-foreground leading-relaxed max-w-lg transition-all duration-1000 delay-100 ${
                 isVisible ? "opacity-100" : "opacity-0"
               }`}>
-                Your agents run on distributed infrastructure across 29 regions.
-                Sub-50ms latency to 99% of the world.
+                The Blueprint Intelligence Platform Preferred by Businesses.
               </p>
             </div>
           </div>
@@ -144,58 +162,59 @@ export function InfrastructureSection() {
             
             <div className="relative z-10">
               <div className="flex items-baseline gap-2 mb-4">
-                <span className="text-8xl lg:text-[10rem] font-display leading-none">29</span>
-                <span className="text-2xl text-muted-foreground">regions</span>
+                <span className="text-8xl lg:text-[10rem] font-display leading-none">11</span>
+                <span className="text-2xl text-muted-foreground">industry verticals</span>
               </div>
               <p className="text-muted-foreground max-w-md">
-                Compute nodes distributed globally for maximum redundancy and minimum latency.
+                Purpose-built for regulated, high-volume, and fast-moving sectors.
               </p>
             </div>
           </div>
 
-          {/* Stacked stat cards */}
+          {/* Industry cards */}
           <div className="flex flex-col gap-6">
-            <div className={`p-8 border border-foreground/10 bg-foreground/[0.02] transition-all duration-700 delay-100 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}>
-              <span className="text-5xl lg:text-6xl font-display">99.99%</span>
-              <span className="block text-sm text-muted-foreground mt-2">Uptime SLA</span>
-            </div>
-            
-            <div className={`p-8 border border-foreground/10 bg-foreground/[0.02] transition-all duration-700 delay-200 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}>
-              <span className="text-5xl lg:text-6xl font-display">&lt;50ms</span>
-              <span className="block text-sm text-muted-foreground mt-2">Global latency</span>
-            </div>
+            {industries.slice(0, 2).map((industry, index) => (
+              <div
+                key={industry.name}
+                className={`group p-8 border transition-all duration-700 ${index === 0 ? "delay-100" : "delay-200"} cursor-default ${
+                  activeIndustry === index
+                    ? "border-white/30 bg-black"
+                    : "border-white/10 bg-black hover:border-white/30"
+                } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                onClick={() => setActiveIndustry(index)}
+                onMouseEnter={() => setActiveIndustry(index)}
+              >
+                <industry.icon className="mb-6 h-8 w-8 text-white" strokeWidth={1.5} />
+                <span className="font-medium text-white block mb-2">{industry.name}</span>
+                <span className="text-sm leading-relaxed text-white/70">{industry.description}</span>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Region list */}
+        {/* Remaining industry cards */}
         <div className={`mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-1000 delay-300 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}>
-          {regions.map((region, index) => (
+          {industries.slice(2).map((industry, index) => {
+            const industryIndex = index + 2;
+            return (
             <div
-              key={region.name}
-              className={`p-6 border transition-all duration-300 cursor-default ${
-                activeRegion === index 
-                  ? "border-foreground/30 bg-foreground/[0.04]" 
-                  : "border-foreground/10"
+              key={industry.name}
+              className={`group p-6 border transition-all duration-300 cursor-default ${
+                activeIndustry === industryIndex
+                  ? "border-white/30 bg-black"
+                  : "border-white/10 bg-black hover:border-white/30"
               }`}
+              onClick={() => setActiveIndustry(industryIndex)}
+              onMouseEnter={() => setActiveIndustry(industryIndex)}
             >
-              <div className="flex items-center gap-2 mb-3">
-                <span className={`w-2 h-2 rounded-full transition-colors ${
-                  activeRegion === index ? "bg-[#eca8d6]" : "bg-foreground/20"
-                }`} />
-                <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
-                  {region.status}
-                </span>
-              </div>
-              <span className="font-medium block mb-1">{region.name}</span>
-              <span className="text-sm text-muted-foreground">{region.nodes} nodes</span>
+              <industry.icon className="mb-5 h-7 w-7 text-white" strokeWidth={1.5} />
+              <span className="font-medium text-white block mb-2">{industry.name}</span>
+              <span className="text-sm leading-relaxed text-white/70">{industry.description}</span>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

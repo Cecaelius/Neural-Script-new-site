@@ -7,7 +7,7 @@ const footerLinks = {
   Product: [
     { name: "Agent capabilities", href: "#features" },
     { name: "How it works", href: "#how-it-works" },
-    { name: "Pricing", href: "#pricing" },
+    { name: "Services", href: "#services" },
     { name: "Integrations", href: "#integrations" },
   ],
   Developers: [

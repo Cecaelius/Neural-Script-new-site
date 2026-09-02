@@ -6,31 +6,31 @@ import { Shield, Lock, Eye, FileCheck } from "lucide-react";
 const securityFeatures = [
   {
     icon: Shield,
-    title: "Isolated execution",
-    description: "Each agent runs in its own secure sandbox.",
+    title: "Technical Deep Dive",
+    description: "We go layer by layer through your code to kill bugs and boost performance before they ever reach production.",
     image: "/images/isolated.jpg",
   },
   {
     icon: Lock,
-    title: "Encrypted memory",
-    description: "Data encrypted at rest and in transit.",
+    title: "Complete Team",
+    description: "No outsourcing, no gaps—just one fully-stocked in-house crew that handles everything from backend to frontend.",
     image: "/images/encrypted.jpg",
   },
   {
     icon: Eye,
-    title: "Full audit trails",
-    description: "Every action logged and inspectable.",
+    title: "Proactive Management",
+    description: "We spot issues, trends, and improvements early, so we're always fixing things before they break.",
     image: "/images/audit.jpg",
   },
   {
     icon: FileCheck,
-    title: "Permission boundaries",
-    description: "Principle of least privilege by design.",
+    title: "Redundant Systems",
+    description: "If one server fails, another takes over instantly—zero downtime, zero panic.",
     image: "/images/permissions.jpg",
   },
 ];
 
-const certifications = ["SOC 2", "ISO 27001", "HIPAA", "GDPR"];
+
 
 export function SecuritySection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -52,40 +52,86 @@ export function SecuritySection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveFeature((prev) => (prev + 1) % securityFeatures.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+}, 3000);
+     return () => clearInterval(interval);
+   }, []);
 
-  return (
+
+   // Left content states
+   const leftContent = [
+     {
+       title: "First Touch Deep Dive",
+       subtitle: "A Pre-Kickoff Technical and Strategic Review",
+       points: [
+         "Full review of your stack, goals, and constraints before kickoff",
+         "Technical alignment session led by our VP Eng, CTO, and senior leads",
+         "Ensures the right architecture, tools, and people are in place before code is written"
+       ]
+     },
+     {
+       title: "A Complete Team",
+       subtitle: "We Deliver More Than a Developer",
+       points: [
+         "Kickoff includes senior oversight: VP Eng, CTO, Project Manager, CSM",
+         "Continued monitoring using proprietary AI tools",
+         "Structured to anticipate risks and surface insights early"
+       ]
+     },
+     {
+       title: "Proactive Management",
+       subtitle: "Daily Stand-ups & Weekly Reviews",
+       points: [
+         "Daily standups with developers to review progress and blockers",
+         "Weekly internal reviews across every project: tracking, tickets, sprints",
+         "Regular contact behind the scenes so you’re never in the dark"
+       ]
+     },
+     {
+       title: "Built-in Redundancy",
+       subtitle: "Our 'Bench Strength' Protocol",
+       points: [
+         "Extra resources learn your application and sit in reserve",
+         "Can step in immediately if priorities shift or needs change",
+         "Keeps delivery on track, no matter what"
+       ]
+     }
+   ];
+
+   return (
     <section id="security" ref={sectionRef} className="relative py-32 lg:py-40 overflow-hidden">
       {/* Background accent removed */}
       
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        {/* Header */}
+{/* Header */}
         <div className="mb-20">
           <span className={`inline-flex items-center gap-4 text-sm font-mono text-muted-foreground mb-8 transition-all duration-700 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}>
             <span className="w-12 h-px bg-foreground/20" />
-            Security
+            We’re Your Trusted Advisor for Technology Solutions
           </span>
           
-          {/* Title — full width */}
-          <h2 className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] mb-12 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}>
-            Autonomous,
-            <br />
-            <span className="text-muted-foreground">not uncontrolled.</span>
-          </h2>
-          
-          {/* Description — below title */}
-          <div className={`transition-all duration-1000 delay-100 ${
+          {/* Title and Description side by side */}
+          <div className={`flex flex-col lg:flex-row lg:items-start lg:justify-between transition-all duration-1000 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}>
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-              Your agents are powerful but constrained. Enterprise-grade security ensures they only do what you allow.
-            </p>
+            {/* Title */}
+            <h2 className={`text-4xl md:text-5xl lg:text-[80px] font-display tracking-tight leading-[0.9] mb-6 lg:mb-0 transition-all duration-1000 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}>
+              From Idea to
+              <br />
+              <span className="text-muted-foreground">Scalable Product.</span>
+            </h2>
+            
+            {/* Description */}
+            <div className={`lg:ml-auto lg:max-w-[45%] lg:w-[45%] flex-1 transition-all duration-1000 ${
+              isVisible ? "opacity-100" : "opacity-0"
+            }`}>
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                We help businesses turn promising ideas into production-ready digital products through a structured journey—from validating concepts and launching MVPs to building market-ready solutions and scaling them for long-term growth. Our engineering, AI, and product expertise ensures every stage is practical, measurable, and built for what comes next.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -108,28 +154,34 @@ export function SecuritySection() {
               ))}
             </div>
             
-            <div className="relative z-10">
-              <span className="font-mono text-sm text-muted-foreground">Active protection</span>
-              <div className="mt-8">
-                <span className="text-7xl lg:text-8xl font-display">0</span>
-                <span className="block text-muted-foreground mt-2">Security incidents this year</span>
-              </div>
-            </div>
-            
-            {/* Certification badges */}
-            <div className="absolute bottom-8 left-8 right-8 flex flex-wrap gap-2">
-              {certifications.map((cert, index) => (
-                <span
-                  key={cert}
-                  className={`px-3 py-1 border border-foreground/10 text-xs font-mono text-muted-foreground transition-all duration-500 ${
-                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                  }`}
-                  style={{ transitionDelay: `${index * 100 + 300}ms` }}
-                >
-                  {cert}
-                </span>
-              ))}
-            </div>
+{/* New left content panel */}
+             <div className="relative z-10">
+                 {leftContent.map((state, index) => (
+                     <div
+                         key={index}
+                         className={`absolute inset-y-0 left-0 max-w-[40%] transition-opacity duration-500 ${
+                             activeFeature === index ? 'opacity-100' : 'opacity-0'
+                         }`}
+                     >
+                         <div className="space-y-6">
+                             <h2 className={`text-3xl lg:text-4xl font-display text-white mb-4`}>
+                                 {state.title}
+                             </h2>
+                             <p className="text-base text-muted-foreground mb-6">
+                                 {state.subtitle}
+                             </p>
+                             <div className="space-y-3">
+                                 {state.points.map((point, pointIndex) => (
+                                     <div key={pointIndex} className="flex items-start space-x-3">
+                                         <img src="/images/check-badge.svg" alt="" className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                                         <p className="text-muted-foreground">{point}</p>
+                                     </div>
+                                 ))}
+                             </div>
+                         </div>
+                     </div>
+                 ))}
+             </div>
           </div>
 
           {/* Feature cards stack */}

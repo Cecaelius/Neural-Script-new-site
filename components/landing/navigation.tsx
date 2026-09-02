@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { name: "About us",      href: "#features"      },
-  { name: "Process",       href: "#how-it-works"  },
-  { name: "Infra",         href: "#infra"          },
-  { name: "Integrations",  href: "#integrations"  },
-  { name: "Security",      href: "#security"      },
-];
+   { name: "About us",      href: "#features"      },
+   { name: "Work",          href: "#how-it-works"  },
+   { name: "Services",      href: "#services"      },
+   { name: "Industries",    href: "#infra"    },
+   { name: "Security",      href: "#security"      },
+ ];
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);

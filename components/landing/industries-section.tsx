@@ -80,7 +80,7 @@ const integrations = [
   { name: "Stripe", category: "Payments" },
 ];
 
-export function IntegrationsSection() {
+export function IndustriesSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
@@ -99,16 +99,16 @@ export function IntegrationsSection() {
   }, []);
 
   return (
-    <section id="integrations" ref={sectionRef} className="relative overflow-hidden">
+    <section id="industries" ref={sectionRef} className="relative overflow-hidden">
 
       {/* Header — centré verticalement sur l'image */}
       <div className="relative z-10 pt-32 lg:pt-40 text-center">
         <span className={`inline-flex items-center gap-4 text-sm font-mono text-muted-foreground mb-8 transition-all duration-700 justify-center ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}>
-          <span className="w-12 h-px bg-foreground/20" />
-          Integrations
-          <span className="w-12 h-px bg-foreground/20" />
+<span className="w-12 h-px bg-foreground/20" />
+           Industries
+           <span className="w-12 h-px bg-foreground/20" />
         </span>
 
         <h2 className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
@@ -209,11 +209,11 @@ export function IntegrationsSection() {
           isVisible ? "opacity-100" : "opacity-0"
         }`}>
           <div className="flex flex-wrap gap-12">
-            {[
-              { value: "100+", label: "Integrations" },
-              { value: "OAuth", label: "Auth built-in" },
-              { value: "Webhooks", label: "Real-time sync" },
-            ].map((stat) => (
+{[
+               { value: "100+", label: "Industries" },
+               { value: "OAuth", label: "Auth built-in" },
+               { value: "Webhooks", label: "Real-time sync" },
+             ].map((stat) => (
               <div key={stat.label} className="flex items-baseline gap-3">
                 <span className="text-3xl font-display">{stat.value}</span>
                 <span className="text-sm text-muted-foreground">{stat.label}</span>

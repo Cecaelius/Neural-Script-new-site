@@ -18,6 +18,7 @@ next.user-config.*
 
 # Dependencies
 node_modules/
+.pnpm-store/
 
 # Next.js build output
 .next/

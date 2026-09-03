@@ -8,8 +8,8 @@ const navLinks = [
    { name: "About us",      href: "#features"      },
    { name: "Work",          href: "#how-it-works"  },
    { name: "Services",      href: "#services"      },
-   { name: "Industries",    href: "#infra"    },
-   { name: "Security",      href: "#security"      },
+   { name: "Industries",    href: "#industries"  },
+   { name: "Build AI",      href: "#developers"    },
  ];
 
 export function Navigation() {

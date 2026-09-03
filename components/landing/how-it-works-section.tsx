@@ -88,9 +88,9 @@ export function HowItWorksSection() {
             <h2 className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.85] transition-all duration-1000 delay-100 ${
               isVisible ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0"
             }`}>
-              <span className="block">Define.</span>
-              <span className="block text-white/30">Develop.</span>
-              <span className="block text-white/10">Scale.</span>
+              <span className="block">Define</span>
+              <span className="block text-white/30">Develop</span>
+              <span className="block text-white/10">Scale</span>
             </h2>
             <p className={`mt-8 text-xl text-muted-foreground leading-relaxed max-w-lg transition-all duration-1000 delay-100 ${
                 isVisible ? "opacity-100" : "opacity-0"

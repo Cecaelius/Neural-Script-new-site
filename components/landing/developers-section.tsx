@@ -2,22 +2,26 @@
 
 import { useState, useEffect, useRef } from "react";
 
-const features = [
-  { 
-    title: "TypeScript native", 
-    description: "Full type safety for agent configs and responses."
+const aiRunCards = [
+  {
+    title: "AI/Run.Transform",
+    href: "#",
+    gradient: "linear-gradient(135deg, #12dce8 0%, #13dce4 48%, #b99cf7 100%)",
   },
-  { 
-    title: "Streaming results", 
-    description: "Watch your agents think and act in real-time."
+  {
+    title: "AI/Run.Blueprints",
+    href: "#",
+    gradient: "linear-gradient(135deg, #ff7900 0%, #ff7900 38%, #ff4c78 100%)",
   },
-  { 
-    title: "Multi-model support", 
-    description: "OpenAI, Anthropic, Mistral, or bring your own."
+  {
+    title: "AI/Run.Talent",
+    href: "#",
+    gradient: "linear-gradient(135deg, #a88af5 0%, #a88af5 42%, #48bdf0 100%)",
   },
-  { 
-    title: "Local debugging", 
-    description: "Test agents locally before deploying to cloud."
+  {
+    title: "AI/Run.Tools",
+    href: "#",
+    gradient: "linear-gradient(135deg, #12dce8 0%, #13dce4 48%, #b99cf7 100%)",
   },
 ];
 
@@ -62,42 +66,66 @@ export function DevelopersSection() {
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12">
         {/* Header — Full width */}
         <div
-          className={`mb-16 transition-all duration-700 ${
+          className={`mb-12 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
           <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
             <span className="w-8 h-px bg-foreground/30" />
-            Developer SDK
+            Artificial Intelligence
           </span>
-          <h2 className="text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9]">
-            Code your agents.
+          <h2 className="text-5xl md:text-6xl lg:text-[80px] font-display tracking-tight leading-[0.9]">
+            Our
             <br />
-            <span className="text-muted-foreground">Or let them code.</span>
+            <span className="text-muted-foreground">AI Insights</span>
           </h2>
+          <p className="mt-8 text-xl text-muted-foreground leading-relaxed max-w-md">
+            Transform your enterprise: innovate, operate, and outpace competitors in the era of AI.
+          </p>
         </div>
 
-        {/* Description + Features — left half only */}
+        {/* AI/Run cards — left half only */}
         <div
-          className={`max-w-[50%] transition-all duration-700 delay-100 ${
+          className={`max-w-full transition-all duration-700 delay-100 lg:max-w-[50%] ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <p className="text-xl text-muted-foreground mb-12 leading-relaxed max-w-md">
-            A powerful SDK for building, deploying, and orchestrating AI agents. 
-            Define behaviors in code or natural language.
-          </p>
-          <div className="grid grid-cols-2 gap-6">
-            {features.map((feature, index) => (
+          <div className="grid grid-cols-1 gap-4 max-w-[760px] sm:grid-cols-2 lg:grid-cols-3">
+            {aiRunCards.map((card, index) => (
               <div
-                key={feature.title}
-                className={`transition-all duration-500 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                key={card.title}
+                className={`group relative isolate box-border aspect-square overflow-visible border border-white/80 transition-opacity duration-500 ${
+                  isVisible ? "opacity-100" : "opacity-0"
                 }`}
                 style={{ transitionDelay: `${index * 50 + 200}ms` }}
               >
-                <h3 className="font-medium mb-1">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
+                <span
+                  aria-hidden="true"
+                  className="absolute -left-2 top-2 z-0 h-full w-full border border-white/80"
+                />
+                <div className="relative h-full w-full [perspective:1000px]">
+                  <div className="relative z-10 h-full w-full [transform-style:preserve-3d] transition-transform duration-700 ease-in-out group-hover:[transform:rotateY(180deg)]">
+                    <div
+                      className="absolute inset-0 flex min-w-0 flex-col justify-end overflow-hidden p-4 [backface-visibility:hidden] lg:p-6"
+                      style={{ backgroundImage: card.gradient }}
+                    >
+                      <span className="max-w-full whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.1em] text-black lg:text-xs">
+                        {card.title}
+                      </span>
+                      <span className="mt-3 text-lg leading-none text-black">
+                        &rarr;
+                      </span>
+                    </div>
+                    <div className="absolute inset-0 flex min-w-0 flex-col justify-between overflow-hidden bg-black p-4 text-white [backface-visibility:hidden] [transform:rotateY(180deg)] lg:p-6">
+                      <span className="max-w-full whitespace-nowrap text-[10px] font-semibold tracking-[0.1em] lg:text-xs">
+                        {card.title}
+                      </span>
+                      <a href={card.href} className="text-xs font-semibold hover:underline lg:text-sm">
+                        Learn More
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

@@ -31,6 +31,8 @@ const industries: { name: string; description: string; icon: LucideIcon }[] = [
 export function InfrastructureSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndustry, setActiveIndustry] = useState(0);
+  const [hoveredIndustry, setHoveredIndustry] = useState<number | null>(null);
+  const [industryMousePos, setIndustryMousePos] = useState<{ x: number; y: number } | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export function InfrastructureSection() {
   }, []);
 
   return (
-    <section id="infra" ref={sectionRef} className="relative py-32 lg:py-40 overflow-hidden">
+    <section id="industries" ref={sectionRef} className="relative py-32 lg:py-40 overflow-hidden">
         {/* Background accent — retiré, remplacé par l'image sphère */}
       
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
@@ -80,7 +82,7 @@ export function InfrastructureSection() {
 
             {/* Titre + description empilés */}
             <div className="flex flex-col justify-center">
-              <h2 className={`text-4xl md:text-5xl lg:text-[64px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
+              <h2 className={`text-4xl md:text-5xl lg:text-[64px] font-display tracking-tight leading-[1.05] transition-all duration-1000 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}>
                 We Empower Businesses
@@ -176,17 +178,44 @@ export function InfrastructureSection() {
             {industries.slice(0, 2).map((industry, index) => (
               <div
                 key={industry.name}
-                className={`group p-8 border transition-all duration-700 ${index === 0 ? "delay-100" : "delay-200"} cursor-default ${
-                  activeIndustry === index
+                className={`group relative overflow-hidden p-8 border transition-all duration-500 ${index === 0 ? "delay-100" : "delay-200"} cursor-default ${
+                  hoveredIndustry === index
+                    ? "border-foreground bg-foreground/[0.04] scale-[1.02]"
+                    : activeIndustry === index
                     ? "border-white/30 bg-black"
                     : "border-white/10 bg-black hover:border-white/30"
                 } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
                 onClick={() => setActiveIndustry(index)}
-                onMouseEnter={() => setActiveIndustry(index)}
+                onMouseEnter={(e) => {
+                  setActiveIndustry(index);
+                  setHoveredIndustry(index);
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  setIndustryMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+                }}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  setIndustryMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+                }}
+                onMouseLeave={() => {
+                  setHoveredIndustry(null);
+                  setIndustryMousePos(null);
+                }}
               >
-                <industry.icon className="mb-6 h-8 w-8 text-white" strokeWidth={1.5} />
-                <span className="font-medium text-white block mb-2">{industry.name}</span>
-                <span className="text-sm leading-relaxed text-white/70">{industry.description}</span>
+                {hoveredIndustry === index && industryMousePos && (
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 z-0"
+                    style={{
+                      background: `radial-gradient(200px circle at ${industryMousePos.x}px ${industryMousePos.y}px, rgba(255,255,255,0.1) 0%, transparent 70%)`,
+                    }}
+                  />
+                )}
+                <industry.icon className="relative z-10 mb-6 h-8 w-8 text-white" strokeWidth={1.5} />
+                <span className="relative z-10 font-medium text-white block mb-2">{industry.name}</span>
+                <span className="relative z-10 text-sm leading-relaxed text-white/70">{industry.description}</span>
+                <div className="absolute bottom-0 left-0 right-0 z-10 h-px bg-foreground/20 overflow-hidden">
+                  <div className={`h-full bg-foreground transition-all duration-500 ${hoveredIndustry === index ? "w-full" : "w-0"}`} />
+                </div>
               </div>
             ))}
           </div>
@@ -201,17 +230,44 @@ export function InfrastructureSection() {
             return (
             <div
               key={industry.name}
-              className={`group p-6 border transition-all duration-300 cursor-default ${
-                activeIndustry === industryIndex
+              className={`group relative overflow-hidden p-6 border transition-all duration-500 cursor-default ${
+                hoveredIndustry === industryIndex
+                  ? "border-foreground bg-foreground/[0.04] scale-[1.02]"
+                  : activeIndustry === industryIndex
                   ? "border-white/30 bg-black"
                   : "border-white/10 bg-black hover:border-white/30"
               }`}
               onClick={() => setActiveIndustry(industryIndex)}
-              onMouseEnter={() => setActiveIndustry(industryIndex)}
+              onMouseEnter={(e) => {
+                setActiveIndustry(industryIndex);
+                setHoveredIndustry(industryIndex);
+                const rect = e.currentTarget.getBoundingClientRect();
+                setIndustryMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+              }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                setIndustryMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+              }}
+              onMouseLeave={() => {
+                setHoveredIndustry(null);
+                setIndustryMousePos(null);
+              }}
             >
-              <industry.icon className="mb-5 h-7 w-7 text-white" strokeWidth={1.5} />
-              <span className="font-medium text-white block mb-2">{industry.name}</span>
-              <span className="text-sm leading-relaxed text-white/70">{industry.description}</span>
+              {hoveredIndustry === industryIndex && industryMousePos && (
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 z-0"
+                  style={{
+                    background: `radial-gradient(200px circle at ${industryMousePos.x}px ${industryMousePos.y}px, rgba(255,255,255,0.1) 0%, transparent 70%)`,
+                  }}
+                />
+              )}
+              <industry.icon className="relative z-10 mb-5 h-7 w-7 text-white" strokeWidth={1.5} />
+              <span className="relative z-10 font-medium text-white block mb-2">{industry.name}</span>
+              <span className="relative z-10 text-sm leading-relaxed text-white/70">{industry.description}</span>
+              <div className="absolute bottom-0 left-0 right-0 z-10 h-px bg-foreground/20 overflow-hidden">
+                <div className={`h-full bg-foreground transition-all duration-500 ${hoveredIndustry === industryIndex ? "w-full" : "w-0"}`} />
+              </div>
             </div>
             );
           })}

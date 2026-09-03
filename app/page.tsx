@@ -4,12 +4,13 @@ import { FeaturesSection } from "@/components/landing/features-section";
 import { HowItWorksSection } from "@/components/landing/how-it-works-section";
 import { MetricsSection } from "@/components/landing/metrics-section";
 import { InfrastructureSection } from "@/components/landing/infrastructure-section";
-import { IndustriesSection } from "@/components/landing/industries-section";
+import { IntegrationsSection } from "@/components/landing/integrations-section";
 import { SecuritySection } from "@/components/landing/security-section";
 import { DevelopersSection } from "@/components/landing/developers-section";
 import { TestimonialsSection } from "@/components/landing/testimonials-section";
 import { ServicesSection } from "@/components/landing/services-section";
 import { CtaSection } from "@/components/landing/cta-section";
+import { ContactSection } from "@/components/landing/contact-section";
 import { FooterSection } from "@/components/landing/footer-section";
 
 export default function Home() {
@@ -23,10 +24,11 @@ export default function Home() {
       <ServicesSection />
       <SecuritySection />
 <InfrastructureSection />
-       <IndustriesSection />
+       <IntegrationsSection />
        <DevelopersSection />
       <TestimonialsSection />
       <CtaSection />
+      <ContactSection />
       <FooterSection />
     </main>
   );

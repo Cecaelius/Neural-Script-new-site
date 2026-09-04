@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -47,18 +46,26 @@ export function CtaSection() {
           />
           
           <div className="relative z-10 px-8 lg:px-16 py-16 lg:py-24">
+            {/* Markovate Infographic - Top Right Corner */}
+            <div className="absolute top-0 right-0 mt-6 mr-4 lg:mt-2 lg:mr-12 perspective-[2000px]">
+              <img
+                src="https://markovate.com/wp-content/uploads/2024/07/Ai-Chatbot-Development.webp"
+                alt="AI chatbot development services infographic"
+                className="w-[280px] lg:w-[420px] h-auto rotate-y-[0.5deg] drop-shadow-[0px_10px_25px_rgba(0,0,0,0.2)]"
+              />
+            </div>
+            
             <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
               {/* Left content */}
               <div className="flex-1">
-                <h2 className="text-6xl md:text-7xl lg:text-[72px] font-display tracking-tight mb-8 leading-[0.95]">
+                <h2 className="text-[78px] md:text-[90px] lg:text-[100px] font-display tracking-tight mb-8 leading-[0.9]">
                   Ready to delegate
                   <br />
                   to AI agents?
                 </h2>
 
-                <p className="text-xl text-muted-foreground mb-12 leading-relaxed max-w-xl">
-                  Join teams automating complex workflows with Neural Script agents. 
-                  Deploy your first agent in minutes.
+                <p className="text-2xl text-muted-foreground mb-12 leading-relaxed max-w-xl">
+                  Introducing Aql—an intelligent digital assistant that transforms everyday interactions into efficient, meaningful experiences.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-start gap-4">
@@ -66,7 +73,7 @@ export function CtaSection() {
                     size="lg"
                     className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
                   >
-                    Deploy your first agent
+                    Request a Consultation
                     <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                   </Button>
                   <Button
@@ -78,8 +85,8 @@ export function CtaSection() {
                   </Button>
                 </div>
 
-                <p className="text-sm text-muted-foreground mt-8 font-mono">
-                  1,000 free tasks with Neural Script
+                <p className="text-base text-muted-foreground mt-8 font-mono">
+                  With seamless integration and adaptive learning, Aql anticipates your needs, accelerates productivity, and elevates customer satisfaction.
                 </p>
               </div>
 

@@ -4,34 +4,35 @@ import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 const footerLinks = {
-  Product: [
-    { name: "Agent capabilities", href: "#features" },
-    { name: "How it works", href: "#how-it-works" },
-    { name: "Services", href: "#services" },
-    { name: "Integrations", href: "#integrations" },
+  Insights: [
+    { name: "Vibe Coding", href: "#developers" },
+    { name: "Agentic AI", href: "#developers" },
+    { name: "Architecting Resilient AI Agents", href: "#developers" },
+    { name: "A2A Protocol", href: "#developer" },
   ],
-  Developers: [
-    { name: "Documentation", href: "#developers" },
-    { name: "Agent SDK", href: "#" },
-    { name: "API Reference", href: "#developers" },
-    { name: "Status", href: "#" },
+  Services: [
+    { name: "AI Development", href: "#services" },
+    { name: "Team Augmentation", href: "#services" },
+    { name: "Mobile Development", href: "#services" },
+    { name: "Backend Development", href: "#services" },
+    { name: "Frontend Development", href: "#services" },
+    { name: "Web Development", href: "#services" },
   ],
   Company: [
-    { name: "About", href: "#" },
+    { name: "About", href: "#features" },
     { name: "Blog", href: "#" },
     { name: "Careers", href: "#", badge: "Hiring" },
-    { name: "Contact", href: "#" },
+    { name: "Contact", href: "#contact" },
   ],
   Legal: [
     { name: "Privacy", href: "#" },
     { name: "Terms", href: "#" },
-    { name: "Security", href: "#security" },
+    { name: "Security", href: "#" },
   ],
 };
 
 const socialLinks = [
-  { name: "Twitter", href: "#" },
-  { name: "GitHub", href: "#" },
+  { name: "Facebook", href: "#" },
   { name: "LinkedIn", href: "#" },
 ];
 
@@ -120,7 +121,7 @@ export function FooterSection() {
               </a>
 
               <p className="text-white/50 leading-relaxed mb-8 max-w-xs text-sm">
-                Neural Script helps teams innovate faster with intelligence that scales.
+                Book a Strategy Call to Make Your Workflows AI-Powered.
               </p>
 
               {/* Social Links */}
@@ -167,13 +168,13 @@ export function FooterSection() {
         {/* Bottom Bar */}
         <div className="py-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-white/30">
-            &copy; 2025 Neural Script. All rights reserved.
+            &copy; 2026 Neural Script. All rights reserved.
           </p>
 
           <div className="flex items-center gap-4 text-sm text-white/30">
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#eca8d6]" />
-              All agents operational
+              Aql operational
             </span>
           </div>
         </div>

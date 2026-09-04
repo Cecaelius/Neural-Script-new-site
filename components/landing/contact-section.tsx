@@ -68,7 +68,6 @@ export function ContactSection() {
           </div>
 
           <div className="mt-8 space-y-3 text-xs text-white/70 lg:text-sm">
-            <p>Certified Quality &amp; Security: ISO 9001:2015 &amp; ISO/IEC 27001:2022</p>
             <p className="font-semibold text-white">Trusted by Enterprises</p>
           </div>
         </div>

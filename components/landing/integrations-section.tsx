@@ -68,12 +68,12 @@ export function IntegrationsSection() {
           <span className="text-muted-foreground">Cases</span>
         </h2>
         <p className={`mt-8 text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto transition-all duration-1000 delay-100 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-          While much of our work is confidential, here's a look at the challenges we've solved across industries — from climate resilience to intelligent assistants.
+          While many of our cases are confidential, here's a look at the challenges we've solved across industries — from climate resilience to intelligent assistants.
         </p>
       </div>
 
       <div className={`relative left-1/2 -translate-x-1/2 w-screen -mt-16 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/connection-KeJwWPQvn6l0a7C48tCARYtNEdC92H.png" alt="" aria-hidden="true" className="w-full h-auto object-cover" />
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/connection-KeJwWPQvn6l0a7C48tCARYtNEdC92H.png" alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-full h-auto object-cover" />
       </div>
 
       <div className="relative z-10 mt-0 lg:-mt-24 max-w-[1400px] mx-auto px-6 lg:px-12">
@@ -134,10 +134,10 @@ export function IntegrationsSection() {
               </div>
             ))}
           </div>
-          <a href="#" className="group inline-flex items-center gap-2 text-sm font-mono text-muted-foreground hover:text-foreground transition-colors">
-            View all cases
-            <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
-          </a>
+<a href="#integrations" className="group inline-flex items-center gap-2 text-sm font-mono text-muted-foreground hover:text-foreground transition-colors">
+             View all cases
+             <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+           </a>
         </div>
       </div>
     </section>

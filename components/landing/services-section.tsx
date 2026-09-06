@@ -77,18 +77,20 @@ function ServiceCard({
             </span>
           ))}
         </div>
-        <button
-          type="button"
-          className="mt-6 inline-flex items-center gap-3 rounded-[6px] bg-[#07112f] px-3.5 py-2.5 text-xs font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100 group-focus-within:translate-x-1 group-focus-within:opacity-100"
-        >
-          Let's chat
-          <ArrowRight className="h-3.5 w-3.5" />
-        </button>
+<a
+  href="#contact"
+  className="mt-6 inline-flex items-center gap-3 rounded-[6px] bg-[#07112f] px-3.5 py-2.5 text-xs font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100 group-focus-within:translate-x-1 group-focus-within:opacity-100"
+>
+  Let's chat
+  <ArrowRight className="h-3.5 w-3.5" />
+</a>
       </div>
       <img
         src={service.image}
         alt=""
         aria-hidden="true"
+        loading="lazy"
+        decoding="async"
         className="absolute right-5 top-1/2 h-44 w-44 -translate-y-1/2 object-contain transition-transform duration-500 group-hover:scale-125 group-hover:-translate-x-2 group-hover:rotate-6"
       />
     </article>
@@ -163,15 +165,15 @@ export function ServicesSection() {
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center">
-          <a
-            href="#"
-            className="group relative inline-flex h-14 items-center gap-4 rounded-[6px] bg-[linear-gradient(94.67deg,#9935e8_0%,#e85535_100%)] px-6 pr-[54px] text-lg font-bold text-white transition-colors duration-300 hover:bg-[#a038d8]"
-          >
-            Request a quote
-            <ArrowRight className="absolute right-6 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
-        </div>
+<div className="mt-8 flex justify-center">
+           <a
+             href="#contact"
+             className="group relative inline-flex h-14 items-center gap-4 rounded-[6px] bg-[linear-gradient(94.67deg,#9935e8_0%,#e85535_100%)] px-6 pr-[54px] text-lg font-bold text-white transition-colors duration-300 hover:bg-[#a038d8]"
+           >
+             Request a quote
+             <ArrowRight className="absolute right-6 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+           </a>
+         </div>
 
         {/* Bottom note with icons */}
         <div className={`mt-20 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 pt-12 border-t border-foreground/10 transition-all duration-1000 delay-500 ${

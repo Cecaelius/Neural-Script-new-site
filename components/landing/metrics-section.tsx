@@ -208,7 +208,7 @@ export function MetricsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 lg:py-40 overflow-hidden">
+    <section id="metrics" ref={sectionRef} className="relative py-32 lg:py-40 overflow-hidden">
       <GridBackground />
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12">
@@ -245,6 +245,8 @@ export function MetricsSection() {
         }`}>
           <img
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/real-time-graph-INFmn3u0MlUwvNPynoIhwxtPaPjxM5.png"
+            loading="lazy"
+            decoding="async"
             alt=""
             aria-hidden="true"
             className="w-full h-auto object-cover"

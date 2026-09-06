@@ -76,6 +76,8 @@ export function InfrastructureSection() {
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/world-3i68QNWJwmO7W19ztZWbevAwJQHzYL.png"
                 alt="Global network sphere"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-contain object-center"
               />
             </div>

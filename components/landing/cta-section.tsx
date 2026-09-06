@@ -51,6 +51,8 @@ export function CtaSection() {
               <img
                 src="https://markovate.com/wp-content/uploads/2024/07/Ai-Chatbot-Development.webp"
                 alt="AI chatbot development services infographic"
+                loading="lazy"
+                decoding="async"
                 className="w-[280px] lg:w-[420px] h-auto rotate-y-[0.5deg] drop-shadow-[0px_10px_25px_rgba(0,0,0,0.2)]"
               />
             </div>
@@ -95,6 +97,8 @@ export function CtaSection() {
                 <img
                   src="/images/bridge.png"
                   alt="Two trees connected by glowing arcs"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-contain object-bottom"
                 />
               </div>

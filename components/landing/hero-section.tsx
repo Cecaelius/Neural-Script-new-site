@@ -128,6 +128,7 @@ export function HeroSection() {
           muted
           loop
           playsInline
+          preload="none"
           aria-hidden="true"
           className="w-full h-full object-cover object-center opacity-80"
         >

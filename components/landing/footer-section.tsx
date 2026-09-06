@@ -2,13 +2,14 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 
 const footerLinks = {
   Insights: [
     { name: "Vibe Coding", href: "#developers" },
     { name: "Agentic AI", href: "#developers" },
     { name: "Architecting Resilient AI Agents", href: "#developers" },
-    { name: "A2A Protocol", href: "#developer" },
+    { name: "A2A Protocol", href: "#developers" },
   ],
   Services: [
     { name: "AI Development", href: "#services" },
@@ -32,8 +33,8 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { name: "Facebook", href: "#" },
-  { name: "LinkedIn", href: "#" },
+  { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61578268079296" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/neural-script/?viewAsMember=true" },
 ];
 
 function AnimatedWaveCanvas() {
@@ -99,6 +100,8 @@ export function FooterSection() {
       <div className="relative w-full h-[340px] md:h-[420px] overflow-hidden">
         <img
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2810%29-UnDKstODkIENp5xqTYUEpt0Sm8tNOw.png"
+          loading="lazy"
+          decoding="async"
           alt="Bioluminescent landscape"
           className="w-full h-full object-cover object-center"
         />
@@ -113,12 +116,12 @@ export function FooterSection() {
         {/* Main Footer */}
         <div className="py-16 lg:py-20">
           <div className="grid grid-cols-2 md:grid-cols-6 gap-12 lg:gap-8">
-            {/* Brand Column */}
-            <div className="col-span-2">
-              <a href="#" className="inline-flex items-center gap-2 mb-6">
-                <span className="text-2xl font-display text-white">Neural Script</span>
-                <span className="text-xs text-white/40 font-mono">TM</span>
-              </a>
+{/* Brand Column */}
+              <div className="col-span-2">
+                <Link href="/" className="inline-flex items-center gap-2 mb-6">
+                  <span className="text-2xl font-display text-white">Neural Script</span>
+                  <span className="text-xs text-white/40 font-mono">TM</span>
+                </Link>
 
               <p className="text-white/50 leading-relaxed mb-8 max-w-xs text-sm">
                 Book a Strategy Call to Make Your Workflows AI-Powered.
@@ -130,6 +133,8 @@ export function FooterSection() {
                   <a
                     key={link.name}
                     href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-sm text-white/40 hover:text-white transition-colors flex items-center gap-1 group"
                   >
                     {link.name}

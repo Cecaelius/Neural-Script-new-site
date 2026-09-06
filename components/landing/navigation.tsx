@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 const navLinks = [
    { name: "About us",      href: "#features"      },
@@ -44,10 +45,10 @@ export function Navigation() {
             isScrolled ? "h-14" : "h-20"
           }`}
         >
-          {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <span className={`font-display tracking-tight transition-all duration-500 ${isScrolled ? "text-xl text-foreground" : "text-2xl text-white"}`}>Neural Script</span>
-          </a>
+{/* Logo */}
+            <Link href="/" className="flex items-center gap-2 group">
+              <span className={`font-display tracking-tight transition-all duration-500 ${isScrolled ? "text-xl text-foreground" : "text-2xl text-white"}`}>Neural Script</span>
+            </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-12">
@@ -65,7 +66,7 @@ export function Navigation() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <a href="#" className={`transition-all duration-500 ${isScrolled ? "text-xs text-foreground/70 hover:text-foreground" : "text-sm text-white/70 hover:text-white"}`}>
+            <a href="#contact" className={`transition-all duration-500 ${isScrolled ? "text-xs text-foreground/70 hover:text-foreground" : "text-sm text-white/70 hover:text-white"}`}>
               Let's talk
             </a>
             <Button
@@ -132,13 +133,19 @@ export function Navigation() {
             <Button 
               variant="outline" 
               className="flex-1 rounded-full h-14 text-base"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={() => {
+                window.location.href = '#contact';
+                setIsMobileMenuOpen(false);
+              }}
             >
               Let's talk
             </Button>
             <Button 
               className="flex-1 bg-foreground text-background rounded-full h-14 text-base"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={() => {
+                window.location.href = '#contact';
+                setIsMobileMenuOpen(false);
+              }}
             >
               Start a project
             </Button>

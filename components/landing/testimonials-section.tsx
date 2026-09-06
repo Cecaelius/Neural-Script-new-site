@@ -12,11 +12,11 @@ const testimonials = [
     metric: { value: "80%", label: "Ticket resolution" },
   },
   {
-    quote: "We deployed research agents that work 24/7. They surface insights we'd never find manually.",
-    author: "Marcus Webb",
-    role: "Head of Research",
-    company: "Flux Systems",
-    metric: { value: "10x", label: "Research output" },
+    quote: "We deployed chatbot agent 'Aql' that work 24/7. They surface insights we'd never find manually.",
+    author: "Rion Majumder",
+    role: "Director",
+    company: "RnR Scientific",
+    metric: { value: "10x", label: "Data Synthesis" },
   },
   {
     quote: "The multi-agent orchestration is incredible. Complex workflows that took weeks now run in hours.",
@@ -78,7 +78,7 @@ export function TestimonialsSection() {
   const activeTestimonial = testimonials[activeIndex];
 
   return (
-    <section ref={sectionRef} className="relative py-32 lg:py-40 bg-foreground text-background overflow-hidden">
+    <section id="testimonials" ref={sectionRef} className="relative py-32 lg:py-40 bg-foreground text-background overflow-hidden">
       {/* ASCII background pattern */}
       <div className="absolute inset-0 font-mono text-[10px] text-background/[0.02] leading-tight overflow-hidden whitespace-pre select-none">
         {Array.from({ length: 60 }, (_, row) =>
@@ -138,20 +138,30 @@ export function TestimonialsSection() {
                 {activeTestimonial.quote}
               </blockquote>
 
-              {/* Author */}
-              <div className="mt-12 flex items-center gap-6">
-                <div className="w-14 h-14 rounded-full bg-background/10 flex items-center justify-center">
-                  <span className="font-display text-xl">
-                    {activeTestimonial.author.charAt(0)}
-                  </span>
-                </div>
-                <div>
-                  <p className="text-lg font-medium">{activeTestimonial.author}</p>
-                  <p className="text-background/60">
-                    {activeTestimonial.role}, {activeTestimonial.company}
-                  </p>
-                </div>
-              </div>
+{/* Author */}
+               <div className="mt-12 flex items-center gap-6">
+                 {activeTestimonial.author === "Rion Majumder" ? (
+                   <img
+                     src="/IMG_2114.jpg"
+                     alt="Rion Majumder"
+                     loading="lazy"
+                     decoding="async"
+                     className="w-14 h-14 rounded-full object-cover"
+                   />
+                 ) : (
+                   <div className="w-14 h-14 rounded-full bg-background/10 flex items-center justify-center">
+                     <span className="font-display text-xl">
+                       {activeTestimonial.author.charAt(0)}
+                     </span>
+                   </div>
+                 )}
+                 <div>
+                   <p className="text-lg font-medium">{activeTestimonial.author}</p>
+                   <p className="text-background/60">
+                     {activeTestimonial.role}, {activeTestimonial.company}
+                   </p>
+                 </div>
+               </div>
             </div>
           </div>
 

@@ -99,7 +99,7 @@ export function IndustriesSection() {
   }, []);
 
   return (
-    <section id="integrations" ref={sectionRef} className="relative overflow-hidden">
+    <section id="industries" ref={sectionRef} className="relative overflow-hidden">
 
       {/* Header — centré verticalement sur l'image */}
       <div className="relative z-10 pt-32 lg:pt-40 text-center">
@@ -221,10 +221,10 @@ export function IndustriesSection() {
             ))}
           </div>
 
-          <a href="#" className="group inline-flex items-center gap-2 text-sm font-mono text-muted-foreground hover:text-foreground transition-colors">
-            View all integrations
-            <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
-          </a>
+<a href="#industries" className="group inline-flex items-center gap-2 text-sm font-mono text-muted-foreground hover:text-foreground transition-colors">
+             View all integrations
+             <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+           </a>
         </div>
       </div>
     </section>

@@ -148,6 +148,8 @@ export function SecuritySection() {
                   key={feature.image}
                   src={feature.image}
                   alt={feature.title}
+                  loading="lazy"
+                  decoding="async"
                   className="absolute h-3/4 w-3/4 object-contain object-right transition-opacity duration-500"
                   style={{ opacity: activeFeature === index ? 0.85 : 0 }}
                 />
@@ -173,7 +175,7 @@ export function SecuritySection() {
                              <div className="space-y-3">
                                  {state.points.map((point, pointIndex) => (
                                      <div key={pointIndex} className="flex items-start space-x-3">
-                                         <img src="/images/check-badge.svg" alt="" className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                                         <img src="/images/check-badge.svg" alt="" loading="lazy" decoding="async" className="w-5 h-5 flex-shrink-0 mt-0.5" />
                                          <p className="text-muted-foreground">{point}</p>
                                      </div>
                                  ))}

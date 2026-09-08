@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const contactItems = [
   {
@@ -27,10 +28,46 @@ const contactItems = [
 
 export function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmitted(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    mode: "onBlur",
+  });
+
+  const onSubmit = async (data: any) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          // honeypot field will be empty string if not filled by bot
+          honeypot: data.honeypot || "",
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to submit");
+      }
+
+      setSubmitted(true);
+      reset();
+    } catch (err: any) {
+      setError(err.message || "Something went wrong while sending your message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,60 +111,84 @@ export function ContactSection() {
 
         <div className="overflow-hidden rounded-[6px] bg-white p-6 text-black shadow-[0_0_24px_rgba(255,255,255,0.08)] lg:p-8">
           <h3 className="text-lg font-semibold">Get in touch with Neural Script</h3>
-          <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
+          <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
+            {/* Honeypot field - hidden */}
+            <div style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }}>
+              <input {...register("honeypot")} name="honeypot" tabIndex={-1} />
+            </div>
+
             <div>
               <label htmlFor="ai-stage" className="mb-1.5 block text-xs text-black/70">What stage are you in your AI journey?*</label>
-              <select id="ai-stage" required className="h-10 w-full border border-black/20 bg-white px-3 text-sm outline-none focus:border-black">
+              <select {...register("aiStage", { required: "Please select your AI journey stage" })} id="ai-stage" className="h-10 w-full border border-black/20 bg-white px-3 text-sm outline-none focus:border-black">
                 <option value="">Select</option>
                 <option>Exploring AI</option>
                 <option>Building a proof of concept</option>
                 <option>Scaling an AI product</option>
               </select>
+              {errors.aiStage && <p className="text-xs text-red-500 mt-1">{errors.aiStage.message}</p>}
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="first-name" className="mb-1.5 block text-xs text-black/70">First Name*</label>
-                <input id="first-name" required type="text" className="h-10 w-full border border-black/20 px-3 text-sm outline-none focus:border-black" />
+                <input {...register("firstName", { required: "First name is required" })} id="first-name" required type="text" className="h-10 w-full border border-black/20 px-3 text-sm outline-none focus:border-black" />
+                {errors.firstName && <p className="text-xs text-red-500 mt-1">{errors.firstName.message}</p>}
               </div>
               <div>
                 <label htmlFor="last-name" className="mb-1.5 block text-xs text-black/70">Last Name*</label>
-                <input id="last-name" required type="text" className="h-10 w-full border border-black/20 px-3 text-sm outline-none focus:border-black" />
+                <input {...register("lastName", { required: "Last name is required" })} id="last-name" required type="text" className="h-10 w-full border border-black/20 px-3 text-sm outline-none focus:border-black" />
+                {errors.lastName && <p className="text-xs text-red-500 mt-1">{errors.lastName.message}</p>}
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="company" className="mb-1.5 block text-xs text-black/70">Company*</label>
-                <input id="company" required type="text" className="h-10 w-full border border-black/20 px-3 text-sm outline-none focus:border-black" />
+                <input {...register("company", { required: "Company is required" })} id="company" required type="text" className="h-10 w-full border border-black/20 px-3 text-sm outline-none focus:border-black" />
+                {errors.company && <p className="text-xs text-red-500 mt-1">{errors.company.message}</p>}
               </div>
               <div>
                 <label htmlFor="work-email" className="mb-1.5 block text-xs text-black/70">Work Email*</label>
-                <input id="work-email" required type="email" className="h-10 w-full border border-black/20 px-3 text-sm outline-none focus:border-black" />
+                <input {...register("workEmail", { 
+                  required: "Work email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email format"
+                  }
+                })} id="work-email" required type="email" className="h-10 w-full border border-black/20 px-3 text-sm outline-none focus:border-black" />
+                {errors.workEmail && <p className="text-xs text-red-500 mt-1">{errors.workEmail.message}</p>}
               </div>
             </div>
 
             <div>
               <label htmlFor="work-phone" className="mb-1.5 block text-xs text-black/70">Work Phone*</label>
-              <input id="work-phone" required type="tel" className="h-10 w-full border border-black/20 px-3 text-sm outline-none focus:border-black" />
+              <input {...register("workPhone", { required: "Work phone is required" })} id="work-phone" required type="tel" className="h-10 w-full border border-black/20 px-3 text-sm outline-none focus:border-black" />
+              {errors.workPhone && <p className="text-xs text-red-500 mt-1">{errors.workPhone.message}</p>}
             </div>
 
             <div>
               <label htmlFor="project-description" className="mb-1.5 block text-xs leading-relaxed text-black/70">
                 Briefly describe your project—goals, challenges, and requirements, to help us assist you more effectively during our initial call.*
               </label>
-              <textarea id="project-description" required rows={4} className="w-full resize-y border border-black/20 px-3 py-2 text-sm outline-none focus:border-black" />
+              <textarea {...register("projectDescription", { required: "Please describe your project" })} id="project-description" required rows={4} className="w-full resize-y border border-black/20 px-3 py-2 text-sm outline-none focus:border-black" />
+              {errors.projectDescription && <p className="text-xs text-red-500 mt-1">{errors.projectDescription.message}</p>}
             </div>
 
             <label className="flex items-start gap-2 text-xs text-black/70">
-              <input type="checkbox" className="mt-0.5 h-4 w-4 shrink-0 accent-black" />
+              <input type="checkbox" {...register("ndaRequested")} className="mt-0.5 h-4 w-4 shrink-0 accent-black" />
               <span>Send me the signed Non-Disclosure Agreement (NDA)</span>
             </label>
 
-            <button type="submit" className="rounded-full bg-black px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-black/80">
-              Submit
+            <button 
+              type="submit" 
+              disabled={loading}
+              className="rounded-full bg-black px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-black/80 ${loading ? 'opacity-70' : ''}"
+            >
+              {loading ? "Sending..." : "Submit"}
             </button>
-            {submitted && <p className="text-xs text-black/60">Thanks. We&apos;ll be in touch soon.</p>}
+            
+            {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
+            {submitted && <p className="text-xs text-black/60 mt-2">Thank you! Your message has been sent successfully. Our team will get back to you soon.</p>}
           </form>
         </div>
       </div>
